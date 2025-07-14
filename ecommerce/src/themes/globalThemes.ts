@@ -1,6 +1,6 @@
-import { ThemeProvider } from '@emotion/react'
+
 import { createTheme } from '@mui/material'
-import React from 'react'
+
 
 const globalThemes = createTheme({
   palette: {
