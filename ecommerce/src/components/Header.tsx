@@ -1,8 +1,14 @@
-import React from 'react'
+
 
 const Header = () => {
   return (
-    <div>Header</div>
+    <div className='header'>
+        <nav>
+            
+            <ul> </ul>
+            <ul> </ul>
+        </nav>
+    </div>
   )
 }
 
