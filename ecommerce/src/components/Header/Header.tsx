@@ -1,8 +1,7 @@
-import React from 'react';
+
 import { AppBar, Toolbar, Typography, Box, IconButton, InputBase, Badge } from '@mui/material';
 import { ShoppingCart, Search } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
-import './Header.scss';
 
 const Header = () => {
   return (
