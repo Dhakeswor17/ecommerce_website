@@ -1,0 +1,22 @@
+.header {
+  background-color: #1e1e1e;
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo a {
+    color: #00ADB5;
+    text-decoration: none;
+  }
+  .searchBox {
+    display: flex;
+    background: #333;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    .searchInput {
+      color: white;
+      margin-right: 0.5rem;
+    }
+  }
+}

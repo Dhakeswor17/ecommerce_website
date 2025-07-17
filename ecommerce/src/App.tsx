@@ -1,14 +1,10 @@
-
-import { CssBaseline } from '@mui/material';
+import Header from "./components/Header/Header";
 
 
 const App = () => {
   return (
-    <>
-      <CssBaseline />
-      
-    </>
-  );
-};
+    <div><Header></Header></div>
+  )
+}
 
-export default App;
+export default App
