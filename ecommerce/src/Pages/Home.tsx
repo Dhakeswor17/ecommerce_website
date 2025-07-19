@@ -1,5 +1,8 @@
 import React from "react";
+import { Box, Typography, Grid } from "@mui/material";
 
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 const Home: React.FC = () => {
   const products = useSelector((state: RootState) => state.product.items);
