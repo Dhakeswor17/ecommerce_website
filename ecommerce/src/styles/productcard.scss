@@ -1,0 +1,29 @@
+.product-card {
+  background-color: #2c2c2c;
+  color: #fff;
+  .product-image {
+    height: 200px;
+    object-fit: cover;
+  }
+  .product-title {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  .product-price {
+    color: #00ADB5;
+    font-weight: bold;
+    .original-price {
+      text-decoration: line-through;
+      color: #999;
+      font-size: 0.85rem;
+      margin-left: 0.5rem;
+    }
+  }
+  button {
+    background-color: #00ADB5;
+    color: #fff;
+    &:hover {
+      background-color: #019ca3;
+    }
+  }
+}
