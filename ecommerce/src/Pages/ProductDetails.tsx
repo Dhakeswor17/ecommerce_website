@@ -1,3 +1,4 @@
+// src/pages/ProductDetail/ProductDetail.tsx
 import React from 'react';
 import { Box, Grid, Typography, Button, Container } from '@mui/material';
 
