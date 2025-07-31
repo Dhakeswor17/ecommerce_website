@@ -1,8 +1,8 @@
 import React from 'react';
 import { Grid, Container, Box } from '@mui/material';
-import Banner from '../components/Banner/Banner';
-import CategoryBar from '../components/CategoryBar/CategoryBar';
-import ProductCard from '../components/ProductCard/ProductCard';
+import Banner from '../../components/Banner/Banner';
+import CategoryBar from '../../components/CategoryBar/CategoryBar';
+import ProductCard from '../../components/ProductCard/ProductCard';
 
 const demoProducts = [
   {
