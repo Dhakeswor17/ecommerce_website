@@ -21,6 +21,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ image, title, price, original
           ${price.toFixed(2)}{' '}
           {originalPrice && (
             <span className="original-price">${originalPrice.toFixed(2)}</span>
-         
+          )}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button fullWidth variant="contained" color="primary">
+          Add to Cart
+        </Button>
+      </CardActions>
+    </Card>
+  );
+};
 
 export default ProductCard;
