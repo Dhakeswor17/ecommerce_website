@@ -1,12 +1,11 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import Home from './Pages/Home';
 import ProductDetail from './Pages/ProductDetails';
-import Cart from './pages/Cart/Cart';
+import Cart from './Pages/Cart/Cart';
 import Checkout from './Pages/Checkout/Checkout';
-import Login from './pages/Auth/Login';
-import Register from './pages/Auth/Register';
+import Login from './Pages/Auth/Login';
+import Register from './Pages/Auth/Register';
 import Header from './components/Header/Header';
 
 const darkTheme = createTheme({
