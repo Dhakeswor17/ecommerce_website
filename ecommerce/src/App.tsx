@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import Home from './Pages/Home';
-import ProductDetail from './pages/ProductDetail/ProductDetail';
+import ProductDetail from './Pages/ProductDetails';
 import Cart from './pages/Cart/Cart';
 import Checkout from './pages/Checkout/Checkout';
 import Login from './pages/Auth/Login';
