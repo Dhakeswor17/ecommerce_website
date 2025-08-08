@@ -4,7 +4,7 @@ import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import Home from './Pages/Home';
 import ProductDetail from './Pages/ProductDetails';
 import Cart from './pages/Cart/Cart';
-import Checkout from './pages/Checkout/Checkout';
+import Checkout from './Pages/Checkout/Checkout';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
 import Header from './components/Header/Header';
