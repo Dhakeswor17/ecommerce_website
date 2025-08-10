@@ -8,15 +8,13 @@ import Login from './Pages/Auth/Login';
 import Register from './Pages/Auth/Register';
 import Header from './components/Header/Header';
 
+import ProtectedRoute from './components/ProtectedRoute';
+
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
-    background: {
-      default: '#121212',
-    },
-    primary: {
-      main: '#00ADB5',
-    },
+    background: { default: '#121212' },
+    primary: { main: '#00ADB5' },
   },
 });
 
@@ -30,7 +28,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/checkout" element={<Checkout />} />
+          </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
