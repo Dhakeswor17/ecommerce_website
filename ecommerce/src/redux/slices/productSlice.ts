@@ -43,6 +43,8 @@ export default productSlice.reducer;
 // Selectors
 export const selectSearch = (s: { products: ProductState }) => s.products.search;
 export const selectProducts = (s: { products: ProductState }) => s.products.items;
+export const selectProductById = (s: { products: ProductState }, id: string) =>
+  s.products.items.find(p => p.id === id)
 export const selectFilteredProducts = (s: { products: ProductState }) => {
   const q = s.products.search.trim().toLowerCase();
   if (!q) return s.products.items;
