@@ -9,20 +9,24 @@ export type Product = {
   category?: string;
 };
 
+
+
+
 type ProductState = {
   items: Product[];
   search: string;
+  recentIds: string[]; // ⬅️ add this
 };
 
 const initialState: ProductState = {
   search: '',
+  recentIds: [],
   items: [
-    { id: 'p1', title: 'Smartphone XYZ', image: 'https://via.placeholder.com/300x200', price: 299.99, originalPrice: 399.99, category: 'Electronics' },
-    { id: 'p2', title: 'Wireless Headphones', image: 'https://via.placeholder.com/300x200', price: 99.99, originalPrice: 129.99, category: 'Electronics' },
-    { id: 'p3', title: 'Fitness Tracker', image: 'https://via.placeholder.com/300x200', price: 59.99, originalPrice: 89.99, category: 'Fitness' },
-    { id: 'p4', title: 'Smart TV 50"', image: 'https://via.placeholder.com/300x200', price: 499.99, originalPrice: 599.99, category: 'Electronics' },
+    // ...your demo items
   ],
 };
+
+const MAX_RECENT = 8;
 
 const productSlice = createSlice({
   name: 'products',
@@ -34,17 +38,20 @@ const productSlice = createSlice({
     setProducts(state, action: PayloadAction<Product[]>) {
       state.items = action.payload;
     },
+    addRecentlyViewed(state, action: PayloadAction<string>) {
+      const id = action.payload;
+      // put it first, unique, limit MAX_RECENT
+      state.recentIds = [id, ...state.recentIds.filter(x => x !== id)].slice(0, MAX_RECENT);
+    },
   },
 });
 
-export const { setSearch, setProducts } = productSlice.actions;
+export const { setSearch, setProducts, addRecentlyViewed } = productSlice.actions;
 export default productSlice.reducer;
 
 // Selectors
 export const selectSearch = (s: { products: ProductState }) => s.products.search;
 export const selectProducts = (s: { products: ProductState }) => s.products.items;
-export const selectProductById = (s: { products: ProductState }, id: string) =>
-  s.products.items.find(p => p.id === id)
 export const selectFilteredProducts = (s: { products: ProductState }) => {
   const q = s.products.search.trim().toLowerCase();
   if (!q) return s.products.items;
@@ -52,3 +59,11 @@ export const selectFilteredProducts = (s: { products: ProductState }) => {
     [p.title, p.category ?? ''].some(v => v.toLowerCase().includes(q))
   );
 };
+export const selectProductById = (s: { products: ProductState }, id: string) =>
+  s.products.items.find(p => p.id === id);
+
+export const selectRecentlyViewed = (s: { products: ProductState }) =>
+  s.products.recentIds
+    .map(id => s.products.items.find(p => p.id === id))
+    .filter(Boolean) as Product[];
+
