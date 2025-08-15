@@ -10,23 +10,17 @@ function loadState() {
     const raw = localStorage.getItem(PERSIST_KEY);
     if (!raw) return undefined;
     return JSON.parse(raw);
-  } catch {
-    return undefined;
-  }
+  } catch { return undefined; }
 }
 function saveState(state: any) {
   try {
-    const minimal = { cart: state.cart }; // persist only cart
+    const minimal = { cart: state.cart, user: state.user }; // ⬅️ persist user too
     localStorage.setItem(PERSIST_KEY, JSON.stringify(minimal));
   } catch {}
 }
 
 export const store = configureStore({
-  reducer: {
-    cart: cartReducer,
-    user: userReducer,
-    products: productReducer,
-  },
+  reducer: { cart: cartReducer, user: userReducer, products: productReducer },
   preloadedState: loadState(),
 });
 
