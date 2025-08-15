@@ -1,5 +1,5 @@
 // src/components/CategoryBar/CategoryBar.tsx
-import React from 'react';
+
 import { Box, Button } from '@mui/material';
 import './CategoryBar.scss';
 import { useDispatch } from 'react-redux';
