@@ -2,9 +2,9 @@ import React from 'react';
 import { Box, Grid, Typography, Button, Container, Snackbar } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectProductById } from '../../redux/slices/productSlice';
-import { RootState } from '../../redux/store';
-import { addToCart } from '../../redux/slices/cartSlice';
+import { selectProductById } from '../redux/slices/productSlice';
+import { RootState } from '../redux/store';
+import { addToCart } from '../redux/slices/cartSlice';
 
 const ProductDetail = () => {
   const { id } = useParams();

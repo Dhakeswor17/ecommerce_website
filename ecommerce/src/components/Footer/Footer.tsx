@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Box, Typography, Container } from '@mui/material';
 import './Footer.scss';
 
