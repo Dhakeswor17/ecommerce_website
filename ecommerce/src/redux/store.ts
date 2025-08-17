@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import cartReducer from './slices/cartSlice';
 import userReducer from './slices/userSlice';
 import productReducer from './slices/productSlice';
+import wishlistReducer from './slices/wishlistSlice';
 
 const PERSIST_KEY = 'temudark_state';
 
@@ -14,13 +15,22 @@ function loadState() {
 }
 function saveState(state: any) {
   try {
-    const minimal = { cart: state.cart, user: state.user }; // ⬅️ persist user too
+    const minimal = {
+      cart: state.cart,
+      user: state.user,
+      wishlist: state.wishlist, // ⬅️ persist wishlist
+    };
     localStorage.setItem(PERSIST_KEY, JSON.stringify(minimal));
   } catch {}
 }
 
 export const store = configureStore({
-  reducer: { cart: cartReducer, user: userReducer, products: productReducer },
+  reducer: {
+    cart: cartReducer,
+    user: userReducer,
+    products: productReducer,
+    wishlist: wishlistReducer,  // ⬅️ add
+  },
   preloadedState: loadState(),
 });
 
