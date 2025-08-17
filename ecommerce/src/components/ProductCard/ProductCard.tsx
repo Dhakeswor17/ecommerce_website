@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import {
   Card, CardMedia, CardContent, Typography,
-  CardActions, Button, CardActionArea, Snackbar
+  CardActions, Button, CardActionArea, Snackbar, IconButton, Box
 } from '@mui/material';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import './ProductCard.scss';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/slices/cartSlice';
+import { toggleWishlist, selectWishlistIds } from '../../redux/slices/wishlistSlice';
 import { useNavigate } from 'react-router-dom';
+import { RootState } from '../../redux/store';
 
 type ProductCardProps = {
   id: string;
@@ -19,18 +23,34 @@ type ProductCardProps = {
 const ProductCard: React.FC<ProductCardProps> = ({ id, image, title, price, originalPrice }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [openSnack, setOpenSnack] = useState(false);
+  const [openSnack, setOpenSnack] = useState<string | null>(null);
+  const wishlistIds = useSelector((s: RootState) => selectWishlistIds(s));
+  const wished = wishlistIds.includes(id);
 
   const handleAdd = () => {
     dispatch(addToCart({ id, title, price, image, quantity: 1 }));
-    setOpenSnack(true);
+    setOpenSnack('Added to cart');
+  };
+
+  const handleToggleWish = (e: React.MouseEvent) => {
+    e.stopPropagation(); // don't trigger card click
+    dispatch(toggleWishlist(id));
+    setOpenSnack(wished ? 'Removed from wishlist' : 'Saved to wishlist');
   };
 
   return (
     <>
       <Card className="product-card">
         <CardActionArea onClick={() => navigate(`/product/${id}`)}>
-          <CardMedia component="img" image={image} alt={title} className="product-image" />
+          <Box position="relative">
+            <CardMedia component="img" image={image} alt={title} className="product-image" />
+            <IconButton
+              onClick={handleToggleWish}
+              sx={{ position: 'absolute', top: 8, right: 8, bgcolor: '#00000066', '&:hover': { bgcolor: '#00000099' } }}
+            >
+              {wished ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon sx={{ color: '#fff' }} />}
+            </IconButton>
+          </Box>
           <CardContent>
             <Typography variant="subtitle1" className="product-title" noWrap title={title}>
               {title}
@@ -49,10 +69,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ id, image, title, price, orig
       </Card>
 
       <Snackbar
-        open={openSnack}
-        onClose={() => setOpenSnack(false)}
-        autoHideDuration={2000}
-        message="Added to cart"
+        open={!!openSnack}
+        onClose={() => setOpenSnack(null)}
+        autoHideDuration={1800}
+        message={openSnack ?? ''}
       />
     </>
   );
