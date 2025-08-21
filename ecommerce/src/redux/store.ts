@@ -21,7 +21,9 @@ function saveState(state: any) {
       wishlist: state.wishlist, // ⬅️ persist wishlist
     };
     localStorage.setItem(PERSIST_KEY, JSON.stringify(minimal));
-  } catch {}
+  } catch (e) {
+    console.error('Failed to save state', e);
+  }
 }
 
 export const store = configureStore({
@@ -29,7 +31,7 @@ export const store = configureStore({
     cart: cartReducer,
     user: userReducer,
     products: productReducer,
-    wishlist: wishlistReducer,  // ⬅️ add
+    wishlist: wishlistReducer,  
   },
   preloadedState: loadState(),
 });
