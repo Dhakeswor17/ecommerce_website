@@ -28,7 +28,7 @@ function saveState(state: any) {
 
 export const store = configureStore({
   reducer: {
-    
+    cart: cartReducer,
     user: userReducer,
     products: productReducer,
     wishlist: wishlistReducer,  
