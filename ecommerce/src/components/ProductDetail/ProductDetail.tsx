@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Grid, Typography, Button, Container } from '@mui/material';
 
 const ProductDetail = () => {
