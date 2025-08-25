@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Container, Typography, Grid, TextField, Button, Divider } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
@@ -50,3 +49,5 @@ const Checkout = () => {
 };
 
 export default Checkout;
+
+
