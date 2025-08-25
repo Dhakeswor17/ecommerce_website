@@ -18,7 +18,7 @@ function saveState(state: any) {
     const minimal = {
       cart: state.cart,
       user: state.user,
-      wishlist: state.wishlist, // ⬅️ persist wishlist
+      wishlist: state.wishlist, 
     };
     localStorage.setItem(PERSIST_KEY, JSON.stringify(minimal));
   } catch (e) {
@@ -26,13 +26,17 @@ function saveState(state: any) {
   }
 }
 
+import { combineReducers } from '@reduxjs/toolkit';
+
+const rootReducer = combineReducers({
+  cart: cartReducer,
+  user: userReducer,
+  products: productReducer,
+  wishlist: wishlistReducer,  
+});
+
 export const store = configureStore({
-  reducer: {
-    cart: cartReducer,
-    user: userReducer,
-    products: productReducer,
-    wishlist: wishlistReducer,  
-  },
+  reducer: rootReducer,
   preloadedState: loadState(),
 });
 
