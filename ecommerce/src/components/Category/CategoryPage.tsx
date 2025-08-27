@@ -21,15 +21,15 @@ const CategoryPage = () => {
         ) : (
           <Grid container spacing={3}>
             {list.map(p => (
-              <Grid item xs={12} sm={6} md={3} key={p.id}>
+              < item xs={12} sm={6} md={3} key={p.id}>
                 <ProductCard
                   id={p.id}
                   image={p.image}
                   title={p.title}
                   price={p.price}
                   originalPrice={p.originalPrice}
-                />
-              </Grid>
+                />>
+              
             ))}
           </Grid>
         )}
