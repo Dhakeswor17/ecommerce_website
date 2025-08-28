@@ -7,9 +7,7 @@ import { setSearch } from '../../redux/slices/productSlice';
 
 const categories = ['All', 'Electronics', 'Fitness', 'Home', 'Beauty', 'Toys', 'Books'];
 
-const CategoryBar = () => {
-  const dispatch = useDispatch();
-  const onCat = (c: string) => dispatch(setSearch(c === 'All' ? '' : c));
+
 
   return (
     <Box className="category-bar">
