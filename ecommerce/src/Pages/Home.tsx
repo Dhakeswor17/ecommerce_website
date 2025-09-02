@@ -2,7 +2,7 @@
 import React from 'react';
 import { Grid, Container, Box, Typography } from '@mui/material';
 import Banner from '../components/Banner/Banner';
-import CategoryBar from '../components/CategoryBar/CategoryBar';
+import CategoryBar from '../components/Category/CategoryBar';
 import ProductCard from '../components/ProductCard/ProductCard';
 import { useSelector } from 'react-redux';
 import { selectFilteredProducts, selectRecentlyViewed } from '../redux/slices/productSlice';
