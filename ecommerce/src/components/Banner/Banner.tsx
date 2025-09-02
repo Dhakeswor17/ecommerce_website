@@ -1,6 +1,6 @@
 
 import { Box, Typography } from '@mui/material';
-import './Banner.scss';
+//import './Banner.scss';
 
 const Banner = () => {
   return (

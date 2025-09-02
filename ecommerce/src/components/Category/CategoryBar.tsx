@@ -1,7 +1,7 @@
 // src/components/CategoryBar/CategoryBar.tsx
 
 import { Box, Button } from '@mui/material';
-import './CategoryBar.scss';
+//import './CategoryBar.scss';
 import { useDispatch } from 'react-redux';
 import { setSearch } from '../../redux/slices/productSlice';
 
