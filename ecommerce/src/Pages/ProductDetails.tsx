@@ -3,7 +3,7 @@ import { Box, Grid, Typography, Button, Container, Snackbar } from '@mui/materia
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectProductById } from '../redux/slices/productSlice';
-import { RootState } from '../redux/store';
+import type { RootState } from '../redux/store';
 import { addToCart } from '../redux/slices/cartSlice';
 
 const ProductDetail = () => {
