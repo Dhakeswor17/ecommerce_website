@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/slices/cartSlice';
 import { toggleWishlist, selectWishlistIds } from '../../redux/slices/wishlistSlice';
 import { useNavigate } from 'react-router-dom';
-import { RootState } from '../../redux/store';
+import type { RootState } from '../../redux/store';
 
 type ProductCardProps = {
   id: string;
