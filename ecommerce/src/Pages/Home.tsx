@@ -14,7 +14,7 @@ const Home: React.FC = () => {
   return (
     <Box sx={{ backgroundColor: '#121212', color: '#fff', py: 4 }}>
       <Container>
-        {/* Hero */}
+        {/* Hero }
         <Banner />
 
         {/* Categories */}
