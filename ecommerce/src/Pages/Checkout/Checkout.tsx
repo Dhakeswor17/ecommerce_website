@@ -1,6 +1,6 @@
 import { Box, Container, Typography, Grid, TextField, Button, Divider } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
+import type { RootState } from '../../redux/store';
 
 const Checkout = () => {
   const cartItems = useSelector((state: RootState) => state.cart.items);

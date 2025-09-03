@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Badge, InputBase, Box } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../redux/store';
+import type { RootState } from '../../redux/store';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../redux/slices/userSlice';
 import { setSearch, selectSearch } from '../../redux/slices/productSlice';
@@ -28,7 +28,7 @@ const Header = () => {
     <AppBar position="static" color="transparent" sx={{ backgroundColor: '#1f1f1f' }}>
       <Toolbar sx={{ gap: 2 }}>
         <Typography variant="h6" sx={{ flexGrow: 0, color: '#fff', cursor: 'pointer' }} onClick={() => navigate('/')}>
-          TEMUDARK
+          MyShop
         </Typography>
 
         {/* Search */}
