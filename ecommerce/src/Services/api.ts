@@ -1,16 +1,23 @@
 import axios from 'axios';
-import { store } from '../redux/store';
+
+const PERSIST_KEY = 'temudark_state';
 
 const api = axios.create({
-  baseURL: 'https://api.escuelajs.co/api/v1', // Platzi Fake Store API base
+  baseURL: 'https://api.escuelajs.co/api/v1',
   headers: { 'Content-Type': 'application/json' },
 });
 
-// Attach token if logged in
 api.interceptors.request.use((config) => {
-  const state = store.getState() as any;
-  const token = state.user?.user?.token;
-  if (token) config.headers.Authorization = `Bearer ${token}`;
+  try {
+    const raw = localStorage.getItem(PERSIST_KEY);
+    const state = raw ? JSON.parse(raw) : null;
+    const token = state?.user?.user?.token;
+    if (token) {
+      config.headers = { ...(config.headers || {}), Authorization: `Bearer ${token}` };
+    }
+  } catch {
+    // ignore
+  }
   return config;
 });
 
