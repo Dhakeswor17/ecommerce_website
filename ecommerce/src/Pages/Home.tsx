@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Grid, Container, Box, Typography, Button, CircularProgress } from '@mui/material'
 import Banner from '../components/Banner/Banner';
 import CategoryBar from '../components/Category/CategoryBar';
