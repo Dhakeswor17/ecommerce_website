@@ -3,40 +3,32 @@ import cartReducer from './slices/cartSlice';
 import userReducer from './slices/userSlice';
 import productReducer from './slices/productSlice';
 import wishlistReducer from './slices/wishlistSlice';
+import categoryReducer from './slices/categorySlice';
 
 const PERSIST_KEY = 'temudark_state';
 
 function loadState() {
-  try {
-    const raw = localStorage.getItem(PERSIST_KEY);
-    if (!raw) return undefined;
-    return JSON.parse(raw);
-  } catch { return undefined; }
+  try { const raw = localStorage.getItem(PERSIST_KEY); return raw ? JSON.parse(raw) : undefined; }
+  catch { return undefined; }
 }
 function saveState(state: any) {
   try {
-    const minimal = {
+    localStorage.setItem(PERSIST_KEY, JSON.stringify({
       cart: state.cart,
       user: state.user,
-      wishlist: state.wishlist, 
-    };
-    localStorage.setItem(PERSIST_KEY, JSON.stringify(minimal));
-  } catch (e) {
-    console.error('Failed to save state', e);
-  }
+      wishlist: state.wishlist
+    }));
+  } catch {}
 }
 
-import { combineReducers } from '@reduxjs/toolkit';
-
-const rootReducer = combineReducers({
-  cart: cartReducer,
-  user: userReducer,
-  products: productReducer,
-  wishlist: wishlistReducer,  
-});
-
 export const store = configureStore({
-  reducer: rootReducer,
+  reducer: {
+    cart: cartReducer,
+    user: userReducer,
+    products: productReducer,
+    wishlist: wishlistReducer,
+    categories: categoryReducer,
+  },
   preloadedState: loadState(),
 });
 
