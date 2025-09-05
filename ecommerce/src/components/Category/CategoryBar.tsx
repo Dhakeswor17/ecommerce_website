@@ -1,21 +1,23 @@
-// src/components/CategoryBar/CategoryBar.tsx
-
+import React, { useEffect } from 'react';
 import { Box, Button } from '@mui/material';
-//import './CategoryBar.scss';
-import { useDispatch } from 'react-redux';
-import { setSearch } from '../../redux/slices/productSlice';
-
-const categories = ['All', 'Electronics', 'Fitness', 'Home', 'Beauty', 'Toys', 'Books'];
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCategories, selectCategories } from '../../redux/slices/categorySlice';
+import type { AppDispatch } from '../../redux/store';
 
 const CategoryBar = () => {
-  const dispatch = useDispatch();
-  const onCat = (c: string) => dispatch(setSearch(c === 'All' ? '' : c));
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+  const categories = useSelector(selectCategories);
+
+  useEffect(() => { if (!categories.length) dispatch(fetchCategories()); }, [categories.length, dispatch]);
 
   return (
     <Box className="category-bar">
+      <Button variant="outlined" className="category-button" onClick={() => navigate('/')}>All</Button>
       {categories.map((cat) => (
-        <Button key={cat} variant="outlined" className="category-button" onClick={() => onCat(cat)}>
-          {cat}
+        <Button key={cat.id} variant="outlined" className="category-button" onClick={() => navigate(`/category/${encodeURIComponent(cat.name)}`)}>
+          {cat.name}
         </Button>
       ))}
     </Box>
