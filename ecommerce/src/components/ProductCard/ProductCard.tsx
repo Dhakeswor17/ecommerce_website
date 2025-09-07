@@ -5,7 +5,7 @@ import {
 } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-//import '../ProductCard/ProductCard.scss';
+import './ProductCard.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/slices/cartSlice';
 import { toggleWishlist, selectWishlistIds } from '../../redux/slices/wishlistSlice';
@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import type { RootState } from '../../redux/store';
 
 type ProductCardProps = {
-  id: string;
+  id: number; // ← number now
   image: string;
   title: string;
   price: number;
@@ -25,16 +25,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ id, image, title, price, orig
   const navigate = useNavigate();
   const [openSnack, setOpenSnack] = useState<string | null>(null);
   const wishlistIds = useSelector((s: RootState) => selectWishlistIds(s));
-  const wished = wishlistIds.includes(id);
+  const wished = wishlistIds.includes(String(id)); // wishlist keeps strings, normalize here
 
   const handleAdd = () => {
-    dispatch(addToCart({ id, title, price, image, quantity: 1 }));
+    dispatch(addToCart({ id: String(id), title, price, image, quantity: 1 }));
     setOpenSnack('Added to cart');
   };
 
   const handleToggleWish = (e: React.MouseEvent) => {
-    e.stopPropagation(); // don't trigger card click
-    dispatch(toggleWishlist(id));
+    e.stopPropagation();
+    dispatch(toggleWishlist(String(id))); // store wishlist ids as string consistently
     setOpenSnack(wished ? 'Removed from wishlist' : 'Saved to wishlist');
   };
 
@@ -68,12 +68,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ id, image, title, price, orig
         </CardActions>
       </Card>
 
-      <Snackbar
-        open={!!openSnack}
-        onClose={() => setOpenSnack(null)}
-        autoHideDuration={1800}
-        message={openSnack ?? ''}
-      />
+      <Snackbar open={!!openSnack} onClose={() => setOpenSnack(null)} autoHideDuration={1800} message={openSnack ?? ''} />
     </>
   );
 };
