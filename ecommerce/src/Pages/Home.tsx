@@ -9,17 +9,16 @@ import type { AppDispatch } from '../redux/store';
 import { fetchProducts, selectFilteredProducts } from '../redux/slices/productSlice';
 
 
-
 const Home: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const products = useSelector(selectFilteredProducts);
+  const products = useSelector((s: any) => s.products.items);
   const loading = useSelector((s: any) => s.products.loading);
   const totalLoaded = useSelector((s: any) => s.products.totalLoaded);
   const search = useSelector((s: any) => s.products.search);
 
   useEffect(() => {
-    // Fresh load on first mount or when search changes
-    dispatch({ type: 'products/clearProducts' });
+    // when search changes, reload from offset 0 using API ?title=
+    dispatch(clearProducts());
     dispatch(fetchProducts({ offset: 0, limit: 20, title: search || undefined }));
   }, [dispatch, search]);
 
@@ -43,22 +42,17 @@ const Home: React.FC = () => {
           {products.map((p: any) => (
             <Grid item xs={12} sm={6} md={3} key={p.id}>
               <ProductCard
-                id={p.id.toString()}
+                id={p.id} // pass number (see card fix below)
                 image={p.images?.[0] || 'https://via.placeholder.com/300x200'}
                 title={p.title}
                 price={p.price}
-                originalPrice={undefined}
               />
             </Grid>
           ))}
         </Grid>
 
         <Box textAlign="center" mt={3}>
-          {loading ? (
-            <CircularProgress />
-          ) : (
-            <Button variant="outlined" onClick={loadMore}>Load more</Button>
-          )}
+          {loading ? <CircularProgress /> : <Button variant="outlined" onClick={loadMore}>Load more</Button>}
         </Box>
       </Container>
     </Box>
