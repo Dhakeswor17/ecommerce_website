@@ -1,5 +1,5 @@
 // src/components/Header/Header.tsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Badge, InputBase, Box } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useSelector, useDispatch } from 'react-redux';
@@ -17,22 +17,30 @@ const Header = () => {
   const search = useSelector(selectSearch);
   const [localQ, setLocalQ] = useState(search);
 
-  const handleSearchSubmit = (e: React.FormEvent) => {
+  // Debounce search typing
+  useEffect(() => {
+    const t = setTimeout(() => {
+      dispatch(setSearch(localQ));
+      // keep user on Home so results are visible
+      if (window.location.pathname !== '/') navigate('/');
+    }, 300);
+    return () => clearTimeout(t);
+  }, [localQ, dispatch, navigate]);
+
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(setSearch(localQ));
-    // Optional: keep user on Home to see results
-    navigate('/');
+    if (window.location.pathname !== '/') navigate('/');
   };
 
   return (
     <AppBar position="static" color="transparent" sx={{ backgroundColor: '#1f1f1f' }}>
       <Toolbar sx={{ gap: 2 }}>
         <Typography variant="h6" sx={{ flexGrow: 0, color: '#fff', cursor: 'pointer' }} onClick={() => navigate('/')}>
-          MyShop
+          TEMUDARK
         </Typography>
 
-        {/* Search */}
-        <Box component="form" onSubmit={handleSearchSubmit} sx={{
+        <Box component="form" onSubmit={onSubmit} sx={{
           display: 'flex', alignItems: 'center', flexGrow: 1, maxWidth: 560,
           backgroundColor: '#333', borderRadius: 1, px: 1
         }}>
@@ -44,7 +52,6 @@ const Header = () => {
           />
         </Box>
 
-        {/* Auth + Cart */}
         {user ? (
           <Typography onClick={() => dispatch(logout())} sx={{ cursor: 'pointer', mr: 1 }}>
             Logout
@@ -54,6 +61,7 @@ const Header = () => {
             Login
           </Typography>
         )}
+
         <IconButton color="inherit" onClick={() => navigate('/cart')}>
           <Badge badgeContent={totalQuantity} color="error">
             <ShoppingCartIcon sx={{ color: '#fff' }} />
