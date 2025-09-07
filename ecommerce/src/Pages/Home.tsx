@@ -6,7 +6,9 @@ import CategoryBar from '../components/Category/CategoryBar';
 import ProductCard from '../components/ProductCard/ProductCard';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch } from '../redux/store';
-import { fetchProducts, selectFilteredProducts } from '../redux/slices/productSlice';
+import { fetchProducts, clearProducts } from '../redux/slices/productSlice';
+
+
 
 
 const Home: React.FC = () => {
