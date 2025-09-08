@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const PERSIST_KEY = 'temudark_state';
+const PERSIST_KEY = 'myapp_state';
 
 const api = axios.create({
   baseURL: 'https://api.escuelajs.co/api/v1',
@@ -15,9 +15,7 @@ api.interceptors.request.use((config) => {
     if (token) {
       config.headers = { ...(config.headers || {}), Authorization: `Bearer ${token}` };
     }
-  } catch {
-    // ignore
-  }
+  } catch {}
   return config;
 });
 

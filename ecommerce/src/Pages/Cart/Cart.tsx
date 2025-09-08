@@ -4,6 +4,7 @@ import type { RootState } from '../../redux/store';
 import { removeFromCart, updateQuantity } from '../../redux/slices/cartSlice';
 import { Box, Typography, Container, Grid, Button, IconButton, TextField, Snackbar } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useState } from 'react';
 
 const Cart = () => {
   const dispatch = useDispatch();
