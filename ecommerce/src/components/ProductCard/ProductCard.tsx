@@ -5,7 +5,6 @@ import {
 } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import './ProductCard.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/slices/cartSlice';
 import { toggleWishlist, selectWishlistIds } from '../../redux/slices/wishlistSlice';
