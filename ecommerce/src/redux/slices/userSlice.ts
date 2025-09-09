@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import api, { setAuthToken } from '../../Services/api'; 
+import api, { setAuthToken } from '../../Services/api'; // ← make sure api exports setAuthToken (shown below)
 
 type User = { id: number; name: string; email: string; avatar?: string; token: string };
 type AuthResponse = { access_token: string; refresh_token: string };
