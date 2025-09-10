@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import api, { setAuthToken } from '../../Services/api'; // ← make sure api exports setAuthToken (shown below)
+import api, { setAuthToken } from '../../Services/api'; 
+
 
 type User = { id: number; name: string; email: string; avatar?: string; token: string };
 type AuthResponse = { access_token: string; refresh_token: string };
@@ -20,9 +21,10 @@ export const login = createAsyncThunk(
 export const fetchProfile = createAsyncThunk(
   'user/profile',
   async (access_token: string) => {
-    const { data } = await api.get<{ id: number; name: string; email: string; avatar?: string }>('/auth/profile', {
-      headers: { Authorization: `Bearer ${access_token}` },
-    });
+    const { data } = await api.get<{ id: number; name: string; email: string; avatar?: string }>(
+      '/auth/profile',
+      { headers: { Authorization: `Bearer ${access_token}` } }
+    );
     return data;
   }
 );
@@ -33,7 +35,7 @@ const slice = createSlice({
   reducers: {
     logout(state) {
       state.user = null;
-      setAuthToken(undefined); // clear axios header
+      setAuthToken(undefined);
     },
   },
   extraReducers: (b) => {
@@ -42,7 +44,6 @@ const slice = createSlice({
       .addCase(login.pending, (s) => { s.loading = true; s.error = null; })
       .addCase(login.fulfilled, (s, { payload }) => {
         s.loading = false;
-        // Stash token immediately so ProtectedRoute works even before profile loads
         s.user = { id: -1, name: 'User', email: '', token: payload.access_token };
         setAuthToken(payload.access_token);
       })
@@ -55,7 +56,6 @@ const slice = createSlice({
       .addCase(fetchProfile.fulfilled, (s, { payload }) => {
         s.loading = false;
         if (!s.user) {
-          // Shouldn't happen normally, but be safe
           s.user = { id: payload.id, name: payload.name, email: payload.email, token: '' };
         } else {
           s.user = { ...s.user, ...payload };
