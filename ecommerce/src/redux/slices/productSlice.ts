@@ -99,6 +99,6 @@ const productSlice = createSlice({
 export const { setSearch, addRecentlyViewed, clearProducts } = productSlice.actions;
 export default productSlice.reducer;
 
-// Selectors (used elsewhere)
+export const selectSearch = (s: any) => s.products.search
 export const selectProductById = (s: any, id: number) =>
   (s.products.items as Product[]).find(p => p.id === id);
