@@ -2,13 +2,13 @@
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../../redux/store';
 import { removeFromCart, updateQuantity } from '../../redux/slices/cartSlice';
-import { Box, Typography, Container, Grid, Button, IconButton, TextField, Snackbar } from '@mui/material';
+import { Box, Typography, Container, Grid, Button, IconButton, TextField, Snackbar, Stack } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from 'react';
 
-const Cart = () => {
+const Cart: React.FC = () => {
   const dispatch = useDispatch();
-  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const cartItems = useSelector((s: RootState) => s.cart.items);
   const [snackMsg, setSnackMsg] = useState<string | null>(null);
 
   const handleQuantityChange = (id: string, quantity: number) => {
@@ -29,36 +29,54 @@ const Cart = () => {
     <Box sx={{ backgroundColor: '#121212', color: '#fff', py: 5 }}>
       <Container>
         <Typography variant="h4" gutterBottom>Shopping Cart</Typography>
+
         {cartItems.length === 0 ? (
           <Typography>Your cart is empty.</Typography>
         ) : (
           <Grid container spacing={3}>
             {cartItems.map((item) => (
               <Grid item xs={12} key={item.id}>
-                <Box display="flex" alignItems="center" justifyContent="space-between" p={2} bgcolor="#1f1f1f" borderRadius={2}>
-                  <Box display="flex" alignItems="center" gap={2}>
-                    <img src={item.image} alt={item.title} width={80} height={80} style={{ borderRadius: '8px' }} />
+                <Stack
+                  direction={{ xs: 'column', sm: 'row' }}
+                  justifyContent="space-between"
+                  alignItems={{ xs: 'flex-start', sm: 'center' }}
+                  spacing={2}
+                  sx={{ p: 2, bgcolor: '#1f1f1f', borderRadius: 2 }}
+                >
+                  <Stack direction="row" spacing={2} alignItems="center">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      width={80}
+                      height={80}
+                      style={{ borderRadius: 8, objectFit: 'cover' }}
+                    />
                     <Box>
-                      <Typography variant="subtitle1" noWrap>{item.title}</Typography>
+                      <Typography variant="subtitle1" noWrap maxWidth={260}>{item.title}</Typography>
                       <Typography>${item.price.toFixed(2)}</Typography>
                     </Box>
-                  </Box>
-                  <Box display="flex" alignItems="center" gap={1}>
+                  </Stack>
+
+                  <Stack direction="row" spacing={1} alignItems="center">
                     <TextField
                       type="number"
                       value={item.quantity}
                       onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value || '1', 10))}
                       inputProps={{ min: 1 }}
                       size="small"
-                      sx={{ width: '70px', input: { color: '#fff' } }}
+                      sx={{ width: 80, input: { color: '#fff' } }}
                     />
-                    <IconButton onClick={() => handleRemove(item.id)} color="error">
+                    <IconButton onClick={() => handleRemove(item.id)} color="error" aria-label="Remove">
                       <DeleteIcon />
                     </IconButton>
-                  </Box>
-                </Box>
+                    <Button onClick={() => handleRemove(item.id)} color="error" variant="text">
+                      Remove
+                    </Button>
+                  </Stack>
+                </Stack>
               </Grid>
             ))}
+
             <Grid item xs={12}>
               <Box textAlign="right">
                 <Typography variant="h6">Total: ${total.toFixed(2)}</Typography>
