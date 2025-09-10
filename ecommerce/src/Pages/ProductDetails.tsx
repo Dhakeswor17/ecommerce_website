@@ -8,7 +8,7 @@ import { addToCart } from '../redux/slices/cartSlice';
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const productId = Number(id); // ← parse number
+  const productId = Number(id);
   const dispatch = useDispatch<AppDispatch>();
   const product = useSelector((s: RootState) => selectProductById(s as any, productId));
   const [snack, setSnack] = useState(false);

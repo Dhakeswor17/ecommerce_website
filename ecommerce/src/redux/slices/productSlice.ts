@@ -14,8 +14,8 @@ export type Product = {
 type Query = {
   offset?: number;
   limit?: number;
-  title?: string;      // filter by title
-  categoryId?: number; // filter by category
+  title?: string;
+  categoryId?: number;
   price_min?: number;
   price_max?: number;
 };
@@ -26,7 +26,7 @@ type ProductState = {
   recentIds: number[];
   loading: boolean;
   error?: string | null;
-  totalLoaded: number; // for infinite scroll
+  totalLoaded: number;
 };
 
 const initialState: ProductState = {
@@ -38,7 +38,6 @@ const initialState: ProductState = {
   totalLoaded: 0,
 };
 
-// GET /products?offset=&limit=&title=&categoryId=&price_min=&price_max
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
   async (query: Query = {}) => {
@@ -48,7 +47,6 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
-// GET /products/:id
 export const fetchProductById = createAsyncThunk(
   'products/fetchProductById',
   async (id: number) => {
@@ -73,14 +71,13 @@ const productSlice = createSlice({
     clearProducts(state) {
       state.items = [];
       state.totalLoaded = 0;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => { state.loading = true; state.error = null; })
       .addCase(fetchProducts.fulfilled, (state, { payload }) => {
         state.loading = false;
-        // Merge (avoid dups) to support infinite scroll/pagination
         const existingIds = new Set(state.items.map(p => p.id));
         const merged = [...state.items];
         payload.forEach(p => { if (!existingIds.has(p.id)) merged.push(p); });
@@ -102,21 +99,6 @@ const productSlice = createSlice({
 export const { setSearch, addRecentlyViewed, clearProducts } = productSlice.actions;
 export default productSlice.reducer;
 
-// Selectors
-export const selectProducts = (s: any) => (s.products.items as Product[]);
-export const selectSearch = (s: any) => s.products.search as string;
-export const selectFilteredProducts = (s: any) => {
-  const q = (s.products.search as string).trim().toLowerCase();
-  const items = s.products.items as Product[];
-  if (!q) return items;
-  return items.filter(p =>
-    [p.title, p.category?.name ?? '', String(p.price)]
-      .some(v => v?.toLowerCase?.().includes(q))
-  );
-};
+// Selectors (used elsewhere)
 export const selectProductById = (s: any, id: number) =>
   (s.products.items as Product[]).find(p => p.id === id);
-export const selectRecentlyViewed = (s: any) =>
-  (s.products.recentIds as number[])
-    .map((id: number) => (s.products.items as Product[]).find(p => p.id === id))
-    .filter(Boolean) as Product[];

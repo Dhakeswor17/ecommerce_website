@@ -7,30 +7,31 @@ import type { RootState } from '../../redux/store';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../redux/slices/userSlice';
 import { setSearch, selectSearch } from '../../redux/slices/productSlice';
+import { selectWishlistIds } from '../../redux/slices/wishlistSlice';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const cartItems = useSelector((s: RootState) => s.cart.items);
   const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const user = useSelector((s: RootState) => s.user.user);
+  const wishCount = useSelector((s: RootState) => selectWishlistIds(s).length);
   const search = useSelector(selectSearch);
   const [localQ, setLocalQ] = useState(search);
 
-  // Debounce search typing
   useEffect(() => {
     const t = setTimeout(() => {
       dispatch(setSearch(localQ));
-      // keep user on Home so results are visible
-      if (window.location.pathname !== '/') navigate('/');
     }, 300);
     return () => clearTimeout(t);
-  }, [localQ, dispatch, navigate]);
+  }, [localQ, dispatch]);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(setSearch(localQ));
-    if (window.location.pathname !== '/') navigate('/');
+    // If you want explicit navigation to home on submit, uncomment:
+    // navigate('/');
   };
 
   return (
@@ -61,6 +62,12 @@ const Header = () => {
             Login
           </Typography>
         )}
+
+        <IconButton color="inherit" onClick={() => navigate('/wishlist')}>
+          <Badge badgeContent={wishCount} color="error">
+            <FavoriteIcon sx={{ color: '#fff' }} />
+          </Badge>
+        </IconButton>
 
         <IconButton color="inherit" onClick={() => navigate('/cart')}>
           <Badge badgeContent={totalQuantity} color="error">
