@@ -8,8 +8,8 @@ import type { AppDispatch } from '../../redux/store';
 const Login: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const [email, setEmail] = useState('john@mail.com');   // demo creds from API
-  const [password, setPassword] = useState('changeme');   // demo password
+  const [email, setEmail] = useState('john@mail.com');
+  const [password, setPassword] = useState('changeme');
   const loading = useSelector((s: any) => s.user.loading);
   const error = useSelector((s: any) => s.user.error);
 
@@ -40,4 +40,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default Login
