@@ -1,14 +1,13 @@
-// src/components/Header/Header.tsx
 import React, { useEffect, useState } from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Badge, InputBase, Box } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../../redux/store';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../../redux/slices/userSlice';
 import { setSearch, selectSearch } from '../../redux/slices/productSlice';
 import { selectWishlistIds } from '../../redux/slices/wishlistSlice';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -30,15 +29,14 @@ const Header = () => {
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(setSearch(localQ));
-    // If you want explicit navigation to home on submit, uncomment:
-    // navigate('/');
+    
   };
 
   return (
     <AppBar position="static" color="transparent" sx={{ backgroundColor: '#1f1f1f' }}>
       <Toolbar sx={{ gap: 2 }}>
         <Typography variant="h6" sx={{ flexGrow: 0, color: '#fff', cursor: 'pointer' }} onClick={() => navigate('/')}>
-          TEMUDARK
+          My Shop
         </Typography>
 
         <Box component="form" onSubmit={onSubmit} sx={{
