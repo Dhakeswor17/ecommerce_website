@@ -9,8 +9,6 @@ import type { AppDispatch } from '../redux/store';
 import { fetchProducts, clearProducts } from '../redux/slices/productSlice';
 
 
-
-
 const Home: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const products = useSelector((s: any) => s.products.items);
@@ -19,7 +17,6 @@ const Home: React.FC = () => {
   const search = useSelector((s: any) => s.products.search);
 
   useEffect(() => {
-    // when search changes, reload from offset 0 using API ?title=
     dispatch(clearProducts());
     dispatch(fetchProducts({ offset: 0, limit: 20, title: search || undefined }));
   }, [dispatch, search]);
@@ -44,7 +41,7 @@ const Home: React.FC = () => {
           {products.map((p: any) => (
             <Grid item xs={12} sm={6} md={3} key={p.id}>
               <ProductCard
-                id={p.id} // pass number (see card fix below)
+                id={p.id}
                 image={p.images?.[0] || 'https://via.placeholder.com/300x200'}
                 title={p.title}
                 price={p.price}

@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import type { RootState } from '../../redux/store';
 
 type ProductCardProps = {
-  id: number; // ← number now
+  id: number;
   image: string;
   title: string;
   price: number;
@@ -24,7 +24,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ id, image, title, price, orig
   const navigate = useNavigate();
   const [openSnack, setOpenSnack] = useState<string | null>(null);
   const wishlistIds = useSelector((s: RootState) => selectWishlistIds(s));
-  const wished = wishlistIds.includes(String(id)); // wishlist keeps strings, normalize here
+  const wished = wishlistIds.includes(String(id));
 
   const handleAdd = () => {
     dispatch(addToCart({ id: String(id), title, price, image, quantity: 1 }));
@@ -33,7 +33,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ id, image, title, price, orig
 
   const handleToggleWish = (e: React.MouseEvent) => {
     e.stopPropagation();
-    dispatch(toggleWishlist(String(id))); // store wishlist ids as string consistently
+    dispatch(toggleWishlist(String(id)));
     setOpenSnack(wished ? 'Removed from wishlist' : 'Saved to wishlist');
   };
 
