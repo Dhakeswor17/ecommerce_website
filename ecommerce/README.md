@@ -1,69 +1,44 @@
-# React + TypeScript + Vite
+# 🛒 My shop (Dark Mode)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+My shop-themed e-commerce frontend inspired by [Temu](https://temu.com), built with **React + TypeScript, Redux Toolkit, React Router, Material-UI (MUI), and Sass**.  
+The app integrates with the [Platzi Fake Store API](https://fakeapi.platzi.com/) for real product data.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## Expanding the ESLint configuration
+- 🔑 **Authentication** with login & register using Platzi API (`/auth/login`, `/users`)
+- 🛍️ **Product catalog** with server-side search (`?title=`), category filtering, and infinite scroll/load more
+- 📄 **Product detail pages** with add-to-cart support
+- 🛒 **Shopping cart** with quantity updates and remove option
+- ❤️ **Wishlist (Save for later)** with heart toggle
+- 🕓 **Recently viewed** products
+- 🔐 **Protected routes** (e.g. checkout) require login
+- 🎨 **Dark mode theme** using MUI + Sass for customization
+- 📦 **State persistence** in `localStorage` (cart, user, wishlist)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠️ Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- [React 18](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+- [Redux Toolkit](https://redux-toolkit.js.org/) (slices for cart, user, products, wishlist)
+- [React Router v6](https://reactrouter.com/en/main)
+- [Material-UI (MUI)](https://mui.com/) components
+- [Sass](https://sass-lang.com/) styling
+- [Axios](https://axios-http.com/) for API requests
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📂 Project Structure
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+src/
+├── components/ # Reusable UI (Header, Banner, ProductCard, CategoryBar, etc.)
+├── pages/ # Route pages (Home, ProductDetail, Cart, Wishlist, Login, Register, Checkout)
+├── redux/
+│ ├── slices/ # cartSlice, productSlice, userSlice, wishlistSlice
+│ └── store.ts # Redux store with persistence
+├── services/
+│ └── api.ts # Axios client + setAuthToken helper
+├── App.tsx # Routes + layout
+└── index.tsx # Entry point
