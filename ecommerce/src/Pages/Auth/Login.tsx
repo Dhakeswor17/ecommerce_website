@@ -60,7 +60,7 @@ const Login: React.FC = () => {
             {loading ? 'Signing in…' : 'Login'}
           </Button>
 
-          {/* ✅ Register link */}
+        
           <Typography sx={{ mt: 2 }}>
             Don&apos;t have an account?{' '}
             <Link href="/register" color="primary">
