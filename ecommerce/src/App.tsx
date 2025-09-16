@@ -26,7 +26,7 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          <Route path="/category/:id" element={<CategoryPage />} />
+          
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/cart" element={<Cart />} />
